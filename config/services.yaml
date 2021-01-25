@@ -1,0 +1,46 @@
+imports:
+  - { resource: 'parameters.yaml' }
+
+parameters:
+  locale: 'en'
+
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false       # Allows optimizing the container by removing unused services; this also means
+
+  get_set_method_normalizer:
+    class: Symfony\Component\Serializer\Normalizer\PropertyNormalizer
+    tags: [ serializer.normalizer ]
+
+  App\:
+    resource: '../src/*'
+    exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+  api_exception_subscriber:
+    class: App\Presentation\Http\Rest\EventListener\ApiExceptionSubscriber
+    arguments: []
+    tags:
+      - { name: kernel.event_subscriber }
+
+  App\Presentation\Http\Rest\Exception\HttpExceptionMap:
+    arguments:
+      $exceptionMap:
+        'App\Domain\Common\Exception\EntityNotFoundException': 404
+        'Symfony\Component\HttpKernel\Exception\BadRequestHttpException': 400
+        'App\Domain\SurveyResponse\Exception\RequiredQuestionResponseNotFoundException': 400
+        'App\Domain\SurveyResponse\Exception\InvalidQuestionIdInResponseException': 400
+        'App\Domain\Common\Exception\CannotModifyEntityException': 409
+
+  _instanceof:
+
+    App\Application\CommandHandlerInterface:
+      public: true
+      tags:
+        - { name: tactician.handler, typehints: true }
+
+    App\Application\QueryHandlerInterface:
+      public: true
+      tags:
+        - { name: tactician.handler, typehints: true }

@@ -1,0 +1,4 @@
+doctrine_migrations:
+  # List of namespace/path pairs to search for migrations, at least one required
+  migrations_paths:
+    App\Infrastructure\Common\Persistence\Migrations: '%kernel.project_dir%/src/Infrastructure/Common/Persistence/Migrations'

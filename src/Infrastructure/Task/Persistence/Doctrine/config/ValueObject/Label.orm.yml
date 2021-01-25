@@ -1,0 +1,6 @@
+App\Domain\Task\ValueObject\Label:
+  type: embeddable
+  fields:
+    value:
+      type: string
+      nullable: false

@@ -1,0 +1,31 @@
+doctrine:
+  dbal:
+    connections:
+      default:
+        driver: 'pdo_pgsql'
+        server_version:   '13'
+        charset:    UTF8
+        host:       '%db.postgresql.host%'
+        port:       "%db.postgresql.port%"
+        dbname:     '%db.postgresql.dbname%'
+        user:       '%db.postgresql.user%'
+        password:   '%db.postgresql.password%'
+    types:
+      taskId:  App\Infrastructure\Task\Persistence\Doctrine\Type\TaskIdType
+      taskStatus:  App\Infrastructure\Task\Persistence\Doctrine\Type\TaskStatusType
+      taskPriority:  App\Infrastructure\Task\Persistence\Doctrine\Type\TaskPriorityType
+  orm:
+    auto_generate_proxy_classes: '%kernel.debug%'
+    naming_strategy: doctrine.orm.naming_strategy.underscore
+    auto_mapping: true
+    mappings:
+      TaskModel:
+        is_bundle: false
+        type: yml
+        dir: '%kernel.project_dir%/src/Infrastructure/Task/Persistence/Doctrine/config/Model'
+        prefix: 'App\Domain\Task\Model'
+      TaskValueObject:
+        is_bundle: false
+        type: yml
+        dir: '%kernel.project_dir%/src/Infrastructure/Task/Persistence/Doctrine/config/ValueObject'
+        prefix: 'App\Domain\Task\ValueObject'

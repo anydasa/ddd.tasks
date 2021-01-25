@@ -1,0 +1,3 @@
+controllers:
+    resource: ../../src/Presentation/Http/Rest/Controller/
+    type: annotation

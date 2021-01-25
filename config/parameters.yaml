@@ -1,0 +1,6 @@
+parameters:
+  db.postgresql.host:       '%env(POSTGRESQL_HOST)%'
+  db.postgresql.port:       "%env(POSTGRESQL_PORT)%"
+  db.postgresql.dbname:     '%env(POSTGRESQL_DB)%'
+  db.postgresql.user:       '%env(POSTGRESQL_USER)%'
+  db.postgresql.password:   '%env(POSTGRESQL_PASS)%'

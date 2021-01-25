@@ -1,0 +1,20 @@
+App\Domain\Task\Model\Task:
+  repositoryClass: App\Infrastructure\Task\Persistence\Doctrine\Repository\TaskRepository
+  type: entity
+  table: task
+  id:
+    id:
+      type: taskId
+      nullable: false
+  fields:
+    status:
+      type: taskStatus
+      nullable: false
+    priority:
+      type: taskPriority
+      nullable: false
+  embedded:
+    label:
+      class: App\Domain\Task\ValueObject\Label
+    description:
+      class: App\Domain\Task\ValueObject\Description
