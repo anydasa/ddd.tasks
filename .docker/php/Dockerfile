@@ -20,17 +20,10 @@ RUN curl -LS http://get.sensiolabs.de/deptrac.phar -o deptrac.phar \
     && mv deptrac.phar /usr/local/bin/deptrac
 
 RUN apk add --no-cache $PHPIZE_DEPS \
-    && pecl install xdebug-2.9.0 \
+    && pecl install xdebug-3.0.2 \
     && docker-php-ext-enable xdebug
-
-COPY entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ADD conf.ini /usr/local/etc/php/conf.d/
 RUN chmod +r /usr/local/etc/php/conf.d/conf.ini
 
-
 WORKDIR /app
-
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["php-fpm"]

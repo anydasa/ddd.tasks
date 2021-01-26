@@ -29,8 +29,12 @@ services:
       - ./:/app
     env_file:
       - .env
+    environment:
+      PHP_IDE_CONFIG: "serverName=localhost"
     depends_on:
       - db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 volumes:
   db:
