@@ -19,7 +19,7 @@ class CreateTaskRequest implements RequestInterface
 {
     /**
      * @Assert\Uuid
-     * @OA\Property(property="id", type="string", example="123e4567-e89b-12d3-a456-426614174000")
+     * @OA\Property(property="id", type="string", format="uuid")
      */
     private ?string $id = null;
 
