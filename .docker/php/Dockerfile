@@ -15,7 +15,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
       --install-dir=/usr/local/bin \
       --filename=composer
 
-RUN curl -LS http://get.sensiolabs.de/deptrac.phar -o deptrac.phar \
+RUN curl -LS https://github.com/sensiolabs-de/deptrac/releases/download/0.10.2/deptrac.phar -o deptrac.phar \
     && chmod +x deptrac.phar \
     && mv deptrac.phar /usr/local/bin/deptrac
 

@@ -11,6 +11,7 @@ fix-permission: ## fix permission for docker env
 .PHONY: static-analysis
 static-analysis: ## execute tests
 	docker-compose exec php sh -lc 'vendor/bin/phpstan analyse'
+	docker-compose exec php sh -lc '/usr/local/bin/deptrac'
 
 .PHONY: test
 test: ## execute tests

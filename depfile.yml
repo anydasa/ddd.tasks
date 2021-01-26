@@ -1,6 +1,7 @@
 paths:
   - ./src
 exclude_files:
+  - .*test.*
 layers:
   - name: Domain
     collectors:
