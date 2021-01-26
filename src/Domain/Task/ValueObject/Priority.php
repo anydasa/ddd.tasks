@@ -12,10 +12,16 @@ use App\Domain\Task\ValueObject\Priority\PriorityTypes;
 
 abstract class Priority
 {
-    private const BUILTIN_TYPES_MAP = [
-        PriorityTypes::LOW => PriorityLow::class,
-        PriorityTypes::MEDIUM => PriorityMedium::class,
-        PriorityTypes::HIGH => PriorityHigh::class,
+    private const BUILTIN_TYPES_VALUE_MAP = [
+        PriorityTypes::VALUE_LOW => PriorityLow::class,
+        PriorityTypes::VALUE_MEDIUM => PriorityMedium::class,
+        PriorityTypes::VALUE_HIGH => PriorityHigh::class,
+    ];
+
+    private const BUILTIN_TYPES_CODE_MAP = [
+        PriorityTypes::CODE_LOW => PriorityLow::class,
+        PriorityTypes::CODE_MEDIUM => PriorityMedium::class,
+        PriorityTypes::CODE_HIGH => PriorityHigh::class,
     ];
 
     abstract public function getValue(): int;
@@ -24,8 +30,19 @@ abstract class Priority
 
     public static function createFromValue(int $value): Priority
     {
-        if (array_key_exists($value, self::BUILTIN_TYPES_MAP)) {
-            $class = self::BUILTIN_TYPES_MAP[$value];
+        if (array_key_exists($value, self::BUILTIN_TYPES_VALUE_MAP)) {
+            $class = self::BUILTIN_TYPES_VALUE_MAP[$value];
+
+            return new $class();
+        }
+
+        throw new CannotCreateEntityException(sprintf("Can't create priority from value: %s", $value));
+    }
+
+    public static function createFromCode(string $value): Priority
+    {
+        if (array_key_exists($value, self::BUILTIN_TYPES_CODE_MAP)) {
+            $class = self::BUILTIN_TYPES_CODE_MAP[$value];
 
             return new $class();
         }

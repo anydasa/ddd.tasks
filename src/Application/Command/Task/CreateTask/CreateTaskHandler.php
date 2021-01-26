@@ -28,7 +28,7 @@ class CreateTaskHandler implements CommandHandlerInterface
             new TaskId($command->getId()),
             new Label($command->getLabel()),
             new Description($command->getDescription()),
-            Priority::createFromValue($command->getPriority()),
+            Priority::createFromCode($command->getPriority()),
             new DueDate($command->getDueDate())
         );
 

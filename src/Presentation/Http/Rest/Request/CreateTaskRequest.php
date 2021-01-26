@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presentation\Http\Rest\Request;
 
+use App\Domain\Task\ValueObject\Priority\PriorityTypes;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,7 +21,7 @@ class CreateTaskRequest implements RequestInterface
      * @Assert\Uuid
      * @OA\Property(property="id", type="string", example="123e4567-e89b-12d3-a456-426614174000")
      */
-    private ?string $id;
+    private ?string $id = null;
 
     /**
      * @Assert\NotBlank
@@ -36,10 +37,10 @@ class CreateTaskRequest implements RequestInterface
 
     /**
      * @Assert\NotBlank
-     * @Assert\Choice({10,20,30})
+     * @Assert\Choice(choices=PriorityTypes::VALUE_CODE_MAP)
      * @OA\Property(property="priority", description="10 - low; 20 - medium; 30 - high")
      */
-    private int $priority;
+    private string $priority;
 
     /**
      * @Assert\NotBlank
@@ -63,7 +64,7 @@ class CreateTaskRequest implements RequestInterface
         return $this->description;
     }
 
-    public function getPriority(): int
+    public function getPriority(): string
     {
         return $this->priority;
     }

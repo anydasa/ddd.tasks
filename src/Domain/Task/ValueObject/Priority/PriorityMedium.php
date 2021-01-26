@@ -10,7 +10,7 @@ class PriorityMedium extends Priority
 {
     public function getValue(): int
     {
-        return PriorityTypes::MEDIUM;
+        return PriorityTypes::VALUE_MEDIUM;
     }
 
     public function getLabel(): string

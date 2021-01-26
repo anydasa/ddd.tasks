@@ -10,7 +10,7 @@ class PriorityHigh extends Priority
 {
     public function getValue(): int
     {
-        return PriorityTypes::HIGH;
+        return PriorityTypes::VALUE_HIGH;
     }
 
     public function getLabel(): string

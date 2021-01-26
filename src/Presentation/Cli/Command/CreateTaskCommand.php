@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Presentation\Cli\Command;
 
+use App\Application\Command\Task\CreateTask\CreateTaskCommand as AppCreateTaskCommand;
+use App\Domain\Task\ValueObject\Priority\PriorityTypes;
 use Exception;
 use League\Tactician\CommandBus;
 use Psr\Log\LoggerInterface;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -52,30 +55,42 @@ class CreateTaskCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        $label = $io->ask('Enter Label:', 'Some Label', function ($value) {
+            $errors = $this->validator->validatePropertyValue(AppCreateTaskCommand::class, 'label', $value);
+            if (count($errors) > 0) {
+                throw new \RuntimeException($errors->get(0)->getMessage());
+            }
+            return $value;
+        });
 
-        $command = new \App\Application\Command\Task\CreateTask\CreateTaskCommand(
-            $this->validate($io, 'Enter uuid (or skip):', 'id'),
-            $this->validate($io, 'Enter Label:', 'label'),
-            $this->validate($io, 'Enter Description:', 'description'),
-            (int)$this->validate($io, 'Enter Priority:', 'priority'),
-            $this->validate($io, 'Enter Due Date:', 'dueDate')
+        $description = $io->ask('Enter Description:', 'Some Description', function ($value) {
+            $errors = $this->validator->validatePropertyValue(AppCreateTaskCommand::class, 'description', $value);
+            if (count($errors) > 0) {
+                throw new \RuntimeException($errors->get(0)->getMessage());
+            }
+            return $value;
+        });
+
+        $priority = $io->choice('Choice Priority:', PriorityTypes::VALUE_CODE_MAP, array_key_first(PriorityTypes::VALUE_CODE_MAP));
+
+        $dueDate = $io->ask('Enter due date:', date('Y-m-d'), function ($value) {
+            $errors = $this->validator->validatePropertyValue(AppCreateTaskCommand::class, 'dueDate', $value);
+            if (count($errors) > 0) {
+                throw new \RuntimeException($errors->get(0)->getMessage());
+            }
+            return $value;
+        });
+
+        $command = new AppCreateTaskCommand(
+            Uuid::uuid4()->__toString(),
+            $label,
+            $description,
+            $priority,
+            $dueDate
         );
 
         $this->commandBus->handle($command);
 
         return Command::SUCCESS;
-    }
-
-    private function validate($io, $ask, $property)
-    {
-        $class = \App\Application\Command\Task\CreateTask\CreateTaskCommand::class;
-
-        return $io->ask($ask, null, function ($value) use ($class, $property) {
-//            $errors = $this->validator->validatePropertyValue($class, $property, $value);
-//            if (count($errors) > 0) {
-//                throw new \RuntimeException($errors->get(0)->getMessage());
-//            }
-            return $value;
-        });
     }
 }

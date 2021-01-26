@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Application\Command\Task\CreateTask;
 
+use App\Domain\Task\ValueObject\Priority\PriorityTypes;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class CreateTaskCommand
 {
     /**
      * @Assert\Uuid
+     * @Assert\NotBlank
      */
-    private ?string $id;
+    private string $id;
 
     /**
      * @Assert\NotBlank
@@ -25,9 +27,9 @@ final class CreateTaskCommand
 
     /**
      * @Assert\NotBlank
-     * @Assert\Choice({10,20,30})
+     * @Assert\Choice(choices=PriorityTypes::VALUE_CODE_MAP)
      */
-    private int $priority;
+    private string $priority;
 
     /**
      * @Assert\NotBlank
@@ -35,7 +37,7 @@ final class CreateTaskCommand
      */
     private string $dueDate;
 
-    public function __construct(?string $id, string $label, string $description, int $priority, string $dueDate)
+    public function __construct(string $id, string $label, string $description, string $priority, string $dueDate)
     {
         $this->id = $id;
         $this->label = $label;
@@ -44,7 +46,7 @@ final class CreateTaskCommand
         $this->dueDate = $dueDate;
     }
 
-    public function getId(): ?string
+    public function getId(): string
     {
         return $this->id;
     }
@@ -59,7 +61,7 @@ final class CreateTaskCommand
         return $this->description;
     }
 
-    public function getPriority(): int
+    public function getPriority(): string
     {
         return $this->priority;
     }
@@ -68,4 +70,5 @@ final class CreateTaskCommand
     {
         return $this->dueDate;
     }
+
 }

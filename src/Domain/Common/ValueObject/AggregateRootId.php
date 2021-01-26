@@ -17,12 +17,12 @@ abstract class AggregateRootId
 
     /**
      * AggregateRootId constructor.
-     * @param string|null $id
+     * @param string $id
      */
-    public function __construct(?string $id)
+    public function __construct(string $id)
     {
         try {
-            $this->uuid = $id ? Uuid::fromString($id) : Uuid::uuid4();
+            $this->uuid = Uuid::fromString($id);
         } catch (\InvalidArgumentException $e) {
             throw new InvalidUUIDException();
         }

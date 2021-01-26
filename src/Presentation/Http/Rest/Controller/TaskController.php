@@ -83,7 +83,7 @@ class TaskController extends AbstractController
     public function addAction(CreateTaskRequest $request): JsonResponse
     {
         $command = new CreateTaskCommand(
-            $request->getId(),
+            $request->getId() ?? Uuid::uuid4()->__toString(),
             $request->getLabel(),
             $request->getDescription(),
             $request->getPriority(),
@@ -93,7 +93,7 @@ class TaskController extends AbstractController
         $this->commandBus->handle($command);
 
         return new JsonResponse([
-            'id' => $command->getId()->__toString(),
+            'id' => $command->getId(),
         ]);
     }
 
