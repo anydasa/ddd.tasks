@@ -4,6 +4,7 @@
 /var/
 /vendor/
 /.php_cs.cache
+/.deptrac.cache
 
 ###> symfony/framework-bundle ###
 /.env.local
