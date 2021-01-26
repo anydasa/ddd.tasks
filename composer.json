@@ -27,10 +27,10 @@
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^2.17",
     "mockery/mockery": "^1.4",
-    "phpstan/phpstan": "^0.12.67",
+    "phpstan/phpstan": "^0.12.69",
     "phpunit/phpunit": "^9.5",
-    "vimeo/psalm": "^4.4",
-    "symfony/phpunit-bridge": "*"
+    "symfony/phpunit-bridge": "*",
+    "vimeo/psalm": "^4.4"
   },
   "config": {
     "optimize-autoloader": true,

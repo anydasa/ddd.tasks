@@ -1,10 +1,4 @@
 parameters:
-	excludes_analyse:
-		- *Migrations/Version*.php
-	ignoreErrors:
-        # Select is used
-		- '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
-		- '#Cannot call method fetch\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
-		- '#Cannot call method fetchColumn\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
-
-
+  level: 3
+  paths:
+    - src

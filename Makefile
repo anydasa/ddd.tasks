@@ -8,6 +8,10 @@ fix-permission: ## fix permission for docker env
 	sudo chown -R $(shell whoami):$(shell whoami) .
 	sudo chmod +x ./bin/console
 
+.PHONY: static-analysis
+static-analysis: ## execute tests
+	docker-compose exec php sh -lc 'vendor/bin/phpstan analyse'
+
 .PHONY: test
 test: ## execute tests
 	docker-compose -f docker-compose.test.yml up -d

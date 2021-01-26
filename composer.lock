@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b58b88ba9edde9cf1196594bc5edae7",
+    "content-hash": "2f5fec1f15fd57e2ff012f39d424715c",
     "packages": [
         {
             "name": "bornfree/tactician-doctrine-domain-events",

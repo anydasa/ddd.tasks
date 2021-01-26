@@ -17,6 +17,6 @@ indent_size = 4
 indent_style = tab
 
 # Matches the exact files either package.json or .travis.yml
-[{composer.json,*.yml,*.yaml}]
+[{composer.json,*.yml,*.yaml,phpstan.neon}]
 indent_style = space
 indent_size = 2
