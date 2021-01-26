@@ -57,7 +57,7 @@ class TaskController extends AbstractController
 
     /**
      * @Route(
-     *     "/create",
+     *     "/",
      *     name="create_task",
      *     methods={"POST"}
      * )
