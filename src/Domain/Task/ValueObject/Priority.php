@@ -49,4 +49,9 @@ abstract class Priority
 
         throw new CannotCreateEntityException(sprintf("Can't create priority from value: %s", $value));
     }
+
+    public function equal(Priority $other): bool
+    {
+        return $other->getValue() === $this->getValue();
+    }
 }

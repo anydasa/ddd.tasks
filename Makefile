@@ -8,6 +8,10 @@ fix-permission: ## fix permission for docker env
 	sudo chown -R $(shell whoami):$(shell whoami) .
 	sudo chmod +x ./bin/console
 
+.PHONY: app-cache-clear
+app-cache-clear: ## clear cache in for application
+	docker-compose exec php sh -lc 'bin/console cache:clear'
+
 .PHONY: static-analysis
 static-analysis: ## execute tests
 	docker-compose exec php sh -lc 'vendor/bin/phpstan analyse'

@@ -75,10 +75,9 @@ class TaskController extends AbstractController
      *     description="Conflict"
      * )
      * @OA\RequestBody(
+     *     required=true,
      *     @OA\JsonContent(ref=@Model(type="\App\Presentation\Http\Rest\Request\CreateTaskRequest"))
      * ),
-     * @param CreateTaskRequest $request
-     * @return JsonResponse
      */
     public function addAction(CreateTaskRequest $request): JsonResponse
     {
@@ -97,12 +96,39 @@ class TaskController extends AbstractController
         ]);
     }
 
-    public function editAction(EditTaskRequest $request): JsonResponse
+    /**
+     * @Route(
+     *     "/{id}",
+     *     name="edit_task",
+     *     methods={"PUT"}
+     * )
+     * @OA\Parameter(name="id",
+     *    in="path",
+     *    required=true,
+     *    @OA\Schema(type="string", format="uuid")
+     * )
+     * @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(ref=@Model(type="\App\Presentation\Http\Rest\Request\EditTaskRequest"))
+     * )
+     *
+     * @OA\Response(
+     *     response=204,
+     *     description="Task updated successfully"
+     * )
+     * @OA\Response(
+     *     response=400,
+     *     description="Bad request"
+     * )
+     */
+    public function editAction(string $id, EditTaskRequest $request): JsonResponse
     {
         $command = new EditTaskCommand(
-            $request->getId(),
+            $id,
             $request->getLabel(),
-            $request->getDescription()
+            $request->getDescription(),
+            $request->getPriority(),
+            $request->getDueDate()
         );
 
         $this->commandBus->handle($command);

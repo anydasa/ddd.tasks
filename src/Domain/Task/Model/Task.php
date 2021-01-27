@@ -53,6 +53,30 @@ final class Task implements ContainsRecordedEvents
         return $self;
     }
 
+    public function changeDetails(Label $label, Description $description): void
+    {
+        $this->label = $label;
+        $this->description = $description;
+    }
+
+    public function changeDueDate(DueDate $dueDate): void
+    {
+        if ($this->dueDate->equal($dueDate)) {
+            return;
+        }
+        
+        $this->dueDate = $dueDate;
+    }
+
+    public function changePriority(Priority $priority): void
+    {
+        if ($this->priority->equal($priority)) {
+            return;
+        }
+        
+        $this->priority = $priority;
+    }
+    
     public function getLabel(): Label
     {
         return $this->label;

@@ -5,33 +5,34 @@ declare(strict_types=1);
 namespace App\Application\Command\Task\EditTask;
 
 use App\Application\CommandHandlerInterface;
-use App\Domain\Common\ValueObject\Label;
 use App\Domain\Task\Repository\TaskRepositoryInterface;
-use App\Domain\Task\Service\SurveyChecker;
 use App\Domain\Task\ValueObject\Description;
+use App\Domain\Task\ValueObject\DueDate;
+use App\Domain\Task\ValueObject\Label;
+use App\Domain\Task\ValueObject\Priority;
 use App\Domain\Task\ValueObject\TaskId;
-use Doctrine\ORM\EntityManagerInterface;
 
 class EditTaskHandler implements CommandHandlerInterface
 {
-    private TaskRepositoryInterface $formRepository;
-    private EntityManagerInterface $entityManager;
+    private TaskRepositoryInterface $taskRepository;
 
-    public function __construct(TaskRepositoryInterface $formRepository, EntityManagerInterface $entityManager)
+    public function __construct(TaskRepositoryInterface $taskRepository)
     {
-        $this->formRepository = $formRepository;
-        $this->entityManager = $entityManager;
+        $this->taskRepository = $taskRepository;
     }
 
     public function handle(EditTaskCommand $command)
     {
-        $form = $this->formRepository->getById(new TaskId($command->getId()));
+        $task = $this->taskRepository->getById(new TaskId($command->getId()));
 
-        $form->changeFormDetails(
+        $task->changeDetails(
             new Label($command->getLabel()),
             new Description($command->getDescription())
         );
 
-        $this->entityManager->flush();
+        $task->changeDueDate(new DueDate($command->getDueDate()));
+        $task->changePriority(Priority::createFromCode($command->getPriority()));
+
+        $this->taskRepository->flush();
     }
 }

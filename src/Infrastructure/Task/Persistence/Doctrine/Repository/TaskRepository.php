@@ -42,14 +42,14 @@ class TaskRepository extends ServiceEntityRepository implements TaskRepositoryIn
      */
     public function getById(TaskId $id): Task
     {
-        /** @var Task|null $form */
-        $form = $this->findOneBy(['id' => $id, 'deleted' => false]);
+        /** @var Task|null $task */
+        $task = $this->find($id);
 
-        if (null === $form) {
+        if (null === $task) {
             throw new EntityNotFoundException('Task not found');
         }
 
-        return $form;
+        return $task;
     }
 
     /**

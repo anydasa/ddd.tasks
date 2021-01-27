@@ -16,5 +16,7 @@ App\Domain\Task\Model\Task:
   embedded:
     label:
       class: App\Domain\Task\ValueObject\Label
+    dueDate:
+      class: App\Domain\Task\ValueObject\DueDate
     description:
       class: App\Domain\Task\ValueObject\Description

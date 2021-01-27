@@ -1,0 +1,6 @@
+App\Domain\Task\ValueObject\DueDate:
+  type: embeddable
+  fields:
+    value:
+      type: datetime
+      nullable: false

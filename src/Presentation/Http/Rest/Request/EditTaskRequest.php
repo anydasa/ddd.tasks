@@ -4,59 +4,75 @@ declare(strict_types=1);
 
 namespace App\Presentation\Http\Rest\Request;
 
-use Symfony\Component\HttpFoundation\Request;
+use App\Domain\Task\ValueObject\Priority\PriorityTypes;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
- * Class EditFormRequest.
+ * @OA\Schema(
+ *      title="Update Task request",
+ *      description="Update Task request body data",
+ *      type="object",
+ * )
  */
 class EditTaskRequest implements RequestInterface
 {
     /**
-     * @var string
-     *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
+     * @OA\Property(property="label", type="string", example="Some Label")
      */
-    private $id;
+    private string $label;
 
     /**
-     * @var string
-     *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
+     * @OA\Property(property="description", type="string", example="Some Description")
      */
-    private $label;
+    private string $description;
 
     /**
-     * @var string
-     *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
+     * @Assert\Choice(choices=PriorityTypes::VALUE_CODE_MAP)
+     * @OA\Property(property="priority")
      */
-    private $description;
+    private string $priority;
 
     /**
-     * UpdateFormRequest constructor.
+     * @Assert\NotBlank
+     * @Assert\Date
+     * @OA\Property(property="dueDate", example="2020-12-31", description="A Y-m-d formatted value")
      */
-    public function __construct(Request $request)
-    {
-        $data = json_decode((string) $request->getContent(), true);
+    private string $dueDate;
 
-        $this->id = $request->get('uuid');
-        $this->label = $data['label'] ?? '';
-        $this->description = $data['description'] ?? '';
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
+    /**
+     * @return string
+     */
     public function getLabel(): string
     {
         return $this->label;
     }
 
+    /**
+     * @return string
+     */
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPriority(): string
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDueDate(): string
+    {
+        return $this->dueDate;
     }
 }
