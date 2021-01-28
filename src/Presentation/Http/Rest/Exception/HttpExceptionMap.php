@@ -33,6 +33,12 @@ class HttpExceptionMap
             return new JsonResponse(['errors' => $errors], 400);
         }
 
+        foreach ($this->exceptionMap as $exceptionClass => $httpCode) {
+            if ($e instanceof $exceptionClass) {
+                return new JsonResponse(['message' => $e->getMessage()], $httpCode);
+            }
+        }
+
         return new JsonResponse(['message' => $e->getMessage()], 500);
     }
 }

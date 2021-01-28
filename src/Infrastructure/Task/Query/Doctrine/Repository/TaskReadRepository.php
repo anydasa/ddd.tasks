@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Infrastructure\Task\Query\Doctrine\Repository;
 
 use App\Domain\Common\Exception\EntityNotFoundException;
-use App\Domain\Task\Repository\TaskReadModelRepositoryInterface;
+use App\Domain\Task\Repository\TaskReadRepositoryInterface;
 use App\Domain\Task\View\TaskCollectionViewInterface;
 use App\Domain\Task\View\TaskViewInterface;
 use App\Infrastructure\Task\Query\Doctrine\View\TaskListView;
 use App\Infrastructure\Task\Query\Doctrine\View\TaskView;
-use App\Infrastructure\Task\Query\Doctrine\View\FormWithRelationsView;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -19,30 +19,18 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * Class FormReadModelRepository.
  */
-class TaskReadModelRepository implements TaskReadModelRepositoryInterface
+class TaskReadRepository implements TaskReadRepositoryInterface
 {
-    const TABLE_NAME = 'form';
+    const TABLE_NAME = 'task';
 
-    /**
-     * @var array
-     */
-    private $columnMapping = [
+    private array $columnMapping = [
         'label' => 'label_value',
     ];
+    
+    private Connection $connection;
 
-    /**
-     * @var Connection
-     */
-    private $connection;
+    private DenormalizerInterface $normalizer;
 
-    /**
-     * @var DenormalizerInterface
-     */
-    private $normalizer;
-
-    /**
-     * FormReadModelRepository constructor.
-     */
     public function __construct(Connection $connection, DenormalizerInterface $normalizer)
     {
         $this->connection = $connection;
@@ -50,29 +38,28 @@ class TaskReadModelRepository implements TaskReadModelRepositoryInterface
     }
 
     /**
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\DBAL\Query\QueryException
+     * @param string $id
+     * @return TaskViewInterface
+     * @throws Exception
      */
-    public function oneById(UuidInterface $uuid): TaskViewInterface
+    public function oneById(string $id): TaskViewInterface
     {
         $qb = $this->connection->createQueryBuilder();
-        $result = $qb->select('*')->from(self::TABLE_NAME)
-            ->where('form.id = :id')
-            ->andWhere('form.deleted = false')
-            ->setParameter('id', $uuid->toString())
+        $result = $qb->select('*')
+            ->from(self::TABLE_NAME)
+            ->where('id = :id')
+            ->setParameter('id', $id)
             ->execute()
             ->fetch();
 
         if (false === $result) {
-            throw new EntityNotFoundException('Form not found');
+            throw new EntityNotFoundException('Task not found');
         }
 
         return new TaskView(
             $result['id'],
             $result['label_value'],
-            $result['description_value'],
-            $result['created_at'],
-            $result['updated_at']
+            $result['description_value']
         );
     }
 
@@ -97,7 +84,7 @@ class TaskReadModelRepository implements TaskReadModelRepositoryInterface
         $result = $statement->fetch();
 
         if (false === $result) {
-            throw new EntityNotFoundException('Form not found');
+            throw new EntityNotFoundException('Task not found');
         }
 
         $result['questions'] = json_decode($result['questions'] ?? '{}', true);

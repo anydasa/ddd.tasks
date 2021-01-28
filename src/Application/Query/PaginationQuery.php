@@ -4,24 +4,12 @@ declare(strict_types=1);
 
 namespace App\Application\Query;
 
-/**
- * Class PaginationQuery.
- */
 class PaginationQuery
 {
-    /**
-     * @var int
-     */
-    protected $page;
+    protected int $page;
 
-    /**
-     * @var int
-     */
-    protected $pageSize;
+    protected int $pageSize;
 
-    /**
-     * PaginationQuery constructor.
-     */
     public function __construct(int $page, int $pageSize)
     {
         $this->page = $page;

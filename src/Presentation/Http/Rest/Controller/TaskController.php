@@ -7,8 +7,8 @@ namespace App\Presentation\Http\Rest\Controller;
 use App\Application\Command\Task\CreateTask\CreateTaskCommand;
 use App\Application\Command\Task\DeleteTask\DeleteTaskCommand;
 use App\Application\Command\Task\EditTask\EditTaskCommand;
-use App\Application\Query\Task\GetTaskById\GetFormByIdQuery;
-use App\Application\Query\Task\GetTaskCollection\GetTaskCollectionQuery;
+use App\Application\Query\Task\GetTask\GetTaskByIdQuery;
+use App\Application\Query\Task\GetTaskList\GetTaskListQuery;
 use App\Infrastructure\Task\Query\Doctrine\View\TaskListView;
 use App\Presentation\Http\Rest\Request\CreateTaskRequest;
 use App\Presentation\Http\Rest\Request\EditTaskRequest;
@@ -41,7 +41,7 @@ class TaskController extends AbstractController
 
     public function listAction(GetTaskListRequest $request): Response
     {
-        $query = new GetTaskCollectionQuery(
+        $query = new GetTaskListQuery(
             $request->getFilter(),
             $request->getPage(),
             $request->getPageSize()
@@ -138,9 +138,30 @@ class TaskController extends AbstractController
         ]);
     }
 
-    public function getAction(string $uuid): Response
+    /**
+     * @Route(
+     *     "/{id}",
+     *     name="get_task",
+     *     methods={"GET"}
+     * )
+     * @OA\Parameter(name="id",
+     *    in="path",
+     *    required=true,
+     *    @OA\Schema(type="string", format="uuid")
+     * )
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Success"
+     * )
+     * @OA\Response(
+     *     response=404,
+     *     description="Not found"
+     * )
+     */
+    public function getAction(string $id): Response
     {
-        $result = $this->commandBus->handle(new GetFormByIdQuery(Uuid::fromString($uuid)));
+        $result = $this->commandBus->handle(new GetTaskByIdQuery($id));
 
         return new Response($this->serializer->serialize($result, 'json'));
     }

@@ -6,29 +6,14 @@ namespace App\Infrastructure\Common;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-/**
- * Class ViewModelCollection.
- */
-class ViewModelList extends ArrayCollection
+class ListView extends ArrayCollection
 {
-    /**
-     * @var int
-     */
-    protected $page;
+    protected int $page;
 
-    /**
-     * @var int
-     */
-    protected $pageSize;
+    protected int $pageSize;
 
-    /**
-     * @var int
-     */
-    protected $totalCount;
-
-    /**
-     * ViewModelCollection constructor.
-     */
+    protected int $totalCount;
+        
     public function __construct(array $elements = [], int $page, int $pageSize, int $totalCount)
     {
         $this->page = $page;

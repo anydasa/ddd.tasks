@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Query\Task\GetTaskCollection;
+namespace App\Application\Query\Task\GetTaskList;
 
 use App\Application\Query\PaginationQuery;
 
 /**
  * Class GetFormCollectionQuery.
  */
-class GetTaskCollectionQuery extends PaginationQuery
+class GetTaskListQuery extends PaginationQuery
 {
     /**
      * @var array

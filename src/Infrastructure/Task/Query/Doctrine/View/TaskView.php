@@ -8,46 +8,20 @@ use App\Domain\Task\View\TaskViewInterface;
 
 class TaskView implements TaskViewInterface
 {
-    /**
-     * @var string
-     */
-    private $id;
+    private string $id;
 
-    /**
-     * @var string
-     */
-    private $label;
+    private string $label;
 
-    /**
-     * @var string
-     */
-    private $description;
+    private string $description;
 
-    /**
-     * @var string
-     */
-    private $createdAt;
-
-    /**
-     * @var string
-     */
-    private $updatedAt;
-
-    /**
-     * FormView constructor.
-     */
     public function __construct(
         string $id,
-        string $labelValue,
-        string $descriptionValue,
-        string $createdAt,
-        string $updatedAt
+        string $label,
+        string $description
     ) {
         $this->id = $id;
-        $this->label = $labelValue;
-        $this->description = $descriptionValue;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
+        $this->label = $label;
+        $this->description = $description;
     }
 
     public function getId(): string
@@ -63,15 +37,5 @@ class TaskView implements TaskViewInterface
     public function getDescription(): string
     {
         return $this->description;
-    }
-
-    public function getCreatedAt(): string
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt(): string
-    {
-        return $this->updatedAt;
     }
 }
