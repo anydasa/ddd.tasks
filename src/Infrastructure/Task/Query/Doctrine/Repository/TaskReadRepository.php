@@ -13,7 +13,6 @@ use App\Infrastructure\Task\Query\Doctrine\View\TaskView;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
@@ -63,51 +62,14 @@ class TaskReadRepository implements TaskReadRepositoryInterface
         );
     }
 
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     */
-    public function oneWithRelatedById(UuidInterface $uuid): TaskViewInterface
-    {
-        $query = 'SELECT 
-        *, (
-		SELECT json_agg(q) AS questions FROM
-    		(SELECT *, 
-    		  (
-    		    SELECT json_agg(c) as choices from choice as c where q.id=c.question_id and c.deleted=false
-    		  ) choices FROM question
-    		    as q WHERE q.form_id=form.id and q.deleted = false
-    		)
-      q) FROM form where id = :id and deleted = false';
 
-        $statement = $this->connection->executeQuery($query, ['id' => $uuid->toString()]);
-
-        $result = $statement->fetch();
-
-        if (false === $result) {
-            throw new EntityNotFoundException('Task not found');
-        }
-
-        $result['questions'] = json_decode($result['questions'] ?? '{}', true);
-
-        /** @var TaskViewInterface $object */
-        $object = $this->normalizer->denormalize($result, FormWithRelationsView::class);
-
-        return $object;
-    }
-
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\DBAL\Query\QueryException
-     * @throws \Exception
-     */
     public function allByCriteria(array $criteria, int $perPage, int $page): TaskCollectionViewInterface
     {
         $qb = $this->connection->createQueryBuilder();
 
         $this->applyFilter($qb, $criteria);
 
-        $statement = $qb->select('count(form.id)')->from(self::TABLE_NAME)
-            ->andWhere('deleted = false')
+        $statement = $qb->select('count(id)')->from(self::TABLE_NAME)
             ->execute();
 
         $count = $statement->fetchColumn(0);
@@ -123,14 +85,12 @@ class TaskReadRepository implements TaskReadRepositoryInterface
         /** @var array $objects */
         $objects = $this->normalizer->denormalize($result, TaskView::class.'[]');
 
-        $formCollection = new TaskListView(
+        return new TaskListView(
             $objects,
             $page,
             $perPage,
             (int) $count
         );
-
-        return $formCollection;
     }
 
     /**
