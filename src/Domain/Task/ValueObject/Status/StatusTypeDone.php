@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Domain\Task\ValueObject\Status;
+
 use App\Domain\Task\ValueObject\Status;
 
 class StatusTypeDone extends Status

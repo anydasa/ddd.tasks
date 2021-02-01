@@ -20,7 +20,6 @@ class TaskRepository extends ServiceEntityRepository implements TaskRepositoryIn
 {
     /**
      * FormRepository constructor.
-     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -28,7 +27,6 @@ class TaskRepository extends ServiceEntityRepository implements TaskRepositoryIn
     }
 
     /**
-     * @param Task $task
      * @throws ORMException
      */
     public function add(Task $task): void
@@ -36,10 +34,6 @@ class TaskRepository extends ServiceEntityRepository implements TaskRepositoryIn
         $this->_em->persist($task);
     }
 
-    /**
-     * @param TaskId $id
-     * @return Task
-     */
     public function getById(TaskId $id): Task
     {
         /** @var Task|null $task */
@@ -53,7 +47,6 @@ class TaskRepository extends ServiceEntityRepository implements TaskRepositoryIn
     }
 
     /**
-     * @param Task $task
      * @throws ORMException
      */
     public function remove(Task $task): void

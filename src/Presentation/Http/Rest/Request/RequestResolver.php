@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Presentation\Http\Rest\Request;
 
 use App\Application\Exception\CommandValidationException;
+use Generator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -29,7 +29,7 @@ class RequestResolver implements ArgumentValueResolverInterface
         return is_subclass_of($argument->getType(), RequestInterface::class);
     }
 
-    public function resolve(Request $request, ArgumentMetadata $argument): \Generator
+    public function resolve(Request $request, ArgumentMetadata $argument): Generator
     {
         $customRequest = $this->serializer->deserialize(
             $request->getContent(),

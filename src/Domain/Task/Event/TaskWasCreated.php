@@ -6,7 +6,6 @@ namespace App\Domain\Task\Event;
 
 use App\Domain\Common\Event\Event;
 
-
 class TaskWasCreated extends Event
 {
     /**

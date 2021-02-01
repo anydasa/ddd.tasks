@@ -25,7 +25,7 @@ class TaskReadRepository implements TaskReadRepositoryInterface
     private array $columnMapping = [
         'label' => 'label_value',
     ];
-    
+
     private Connection $connection;
 
     private DenormalizerInterface $normalizer;
@@ -37,8 +37,6 @@ class TaskReadRepository implements TaskReadRepositoryInterface
     }
 
     /**
-     * @param string $id
-     * @return TaskViewInterface
      * @throws Exception
      */
     public function oneById(string $id): TaskViewInterface
@@ -61,7 +59,6 @@ class TaskReadRepository implements TaskReadRepositoryInterface
             $result['description_value']
         );
     }
-
 
     public function allByCriteria(array $criteria, int $perPage, int $page): TaskCollectionViewInterface
     {

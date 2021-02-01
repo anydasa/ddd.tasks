@@ -13,7 +13,7 @@ class ListView extends ArrayCollection
     protected int $pageSize;
 
     protected int $totalCount;
-        
+
     public function __construct(array $elements = [], int $page, int $pageSize, int $totalCount)
     {
         $this->page = $page;

@@ -9,17 +9,18 @@ use League\Tactician\Bundle\Middleware\InvalidCommandException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Validator\ConstraintViolation;
+use Throwable;
 
 class HttpExceptionMap
 {
     private array $exceptionMap;
-    
+
     public function __construct(array $exceptionMap)
     {
         $this->exceptionMap = $exceptionMap;
     }
 
-    public function resolveExceptionResponse(\Throwable $e): JsonResponse
+    public function resolveExceptionResponse(Throwable $e): JsonResponse
     {
         if ($e instanceof HttpExceptionInterface) {
             return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());

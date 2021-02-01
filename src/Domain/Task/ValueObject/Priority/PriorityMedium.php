@@ -18,4 +18,3 @@ class PriorityMedium extends Priority
         return 'Medium';
     }
 }
-

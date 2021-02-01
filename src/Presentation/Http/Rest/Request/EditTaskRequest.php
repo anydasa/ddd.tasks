@@ -8,7 +8,6 @@ use App\Domain\Task\ValueObject\Priority\PriorityTypes;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @OA\Schema(
  *      title="Update Task request",
@@ -44,33 +43,21 @@ class EditTaskRequest implements RequestInterface
      */
     private string $dueDate;
 
-    /**
-     * @return string
-     */
     public function getLabel(): string
     {
         return $this->label;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return string
-     */
     public function getPriority(): string
     {
         return $this->priority;
     }
 
-    /**
-     * @return string
-     */
     public function getDueDate(): string
     {
         return $this->dueDate;

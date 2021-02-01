@@ -10,6 +10,7 @@ use Exception;
 use League\Tactician\CommandBus;
 use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -58,16 +59,18 @@ class CreateTaskCommand extends Command
         $label = $io->ask('Enter Label:', 'Some Label', function ($value) {
             $errors = $this->validator->validatePropertyValue(AppCreateTaskCommand::class, 'label', $value);
             if (count($errors) > 0) {
-                throw new \RuntimeException($errors->get(0)->getMessage());
+                throw new RuntimeException($errors->get(0)->getMessage());
             }
+
             return $value;
         });
 
         $description = $io->ask('Enter Description:', 'Some Description', function ($value) {
             $errors = $this->validator->validatePropertyValue(AppCreateTaskCommand::class, 'description', $value);
             if (count($errors) > 0) {
-                throw new \RuntimeException($errors->get(0)->getMessage());
+                throw new RuntimeException($errors->get(0)->getMessage());
             }
+
             return $value;
         });
 
@@ -76,8 +79,9 @@ class CreateTaskCommand extends Command
         $dueDate = $io->ask('Enter due date:', date('Y-m-d'), function ($value) {
             $errors = $this->validator->validatePropertyValue(AppCreateTaskCommand::class, 'dueDate', $value);
             if (count($errors) > 0) {
-                throw new \RuntimeException($errors->get(0)->getMessage());
+                throw new RuntimeException($errors->get(0)->getMessage());
             }
+
             return $value;
         });
 

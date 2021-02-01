@@ -12,9 +12,6 @@ class TaskIdType extends UuidType
 {
     const TASK_ID = 'taskId';
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return self::TASK_ID;

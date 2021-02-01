@@ -70,5 +70,4 @@ final class CreateTaskCommand
     {
         return $this->dueDate;
     }
-
 }

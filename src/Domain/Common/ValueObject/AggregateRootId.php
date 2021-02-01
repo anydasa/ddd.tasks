@@ -8,17 +8,10 @@ use App\Domain\Common\Exception\InvalidUUIDException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * Class AggregateRootId.
- */
 abstract class AggregateRootId
 {
     protected UuidInterface $uuid;
 
-    /**
-     * AggregateRootId constructor.
-     * @param string $id
-     */
     public function __construct(string $id)
     {
         try {

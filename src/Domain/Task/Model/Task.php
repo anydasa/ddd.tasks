@@ -64,7 +64,7 @@ final class Task implements ContainsRecordedEvents
         if ($this->dueDate->equal($dueDate)) {
             return;
         }
-        
+
         $this->dueDate = $dueDate;
     }
 
@@ -73,10 +73,10 @@ final class Task implements ContainsRecordedEvents
         if ($this->priority->equal($priority)) {
             return;
         }
-        
+
         $this->priority = $priority;
     }
-    
+
     public function getLabel(): Label
     {
         return $this->label;
