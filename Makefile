@@ -12,10 +12,15 @@ fix-permission: ## fix permission for docker env
 app-cache-clear: ## clear cache in for application
 	docker-compose exec php sh -lc 'bin/console cache:clear'
 
-.PHONY: static-analysis
-static-analysis: ## execute tests
+.PHONY: code-analyse
+code-analyse: ## analise code
 	docker-compose exec php sh -lc 'vendor/bin/phpstan analyse'
 	docker-compose exec php sh -lc '/usr/local/bin/deptrac'
+	docker-compose exec php sh -lc 'vendor/bin/ecs check'
+
+.PHONY: code-fix
+code-fix: ## fix code
+	docker-compose exec php sh -lc 'vendor/bin/ecs check --fix'
 
 .PHONY: test
 test: ## execute tests
