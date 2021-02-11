@@ -16,7 +16,7 @@ services:
 
   App\:
     resource: '../src/*'
-    exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+    exclude: '../src/**/{Migrations}'
 
   api_exception_subscriber:
     class: App\Presentation\Http\Rest\EventListener\ApiExceptionSubscriber

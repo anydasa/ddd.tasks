@@ -5,16 +5,25 @@
     <include>
       <directory suffix=".php">src</directory>
     </include>
+    <exclude>
+      <directory>./src/Infrastructure/Common/Persistence/Doctrine/Migrations</directory>
+      <file>./src/Infrastructure/Kernel.php</file>
+    </exclude>
   </coverage>
   <php>
     <ini name="error_reporting" value="-1"/>
     <server name="APP_ENV" value="test" force="true"/>
     <server name="SHELL_VERBOSITY" value="-1"/>
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
+    <env name="KERNEL_CLASS" value="App\Infrastructure\Kernel" />
   </php>
   <testsuites>
     <testsuite name="tests">
       <directory>tests</directory>
     </testsuite>
   </testsuites>
+  <listeners>
+    <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
+    <listener class="\DAMA\DoctrineTestBundle\PHPUnit\PHPUnitListener"/>
+  </listeners>
 </phpunit>

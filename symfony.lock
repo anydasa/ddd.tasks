@@ -23,6 +23,18 @@
     "composer/xdebug-handler": {
         "version": "1.4.5"
     },
+    "dama/doctrine-test-bundle": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "56eaa387b5e48ebcc7c95a893b47dfa1ad51449c"
+        },
+        "files": [
+            "config/packages/test/dama_doctrine_test_bundle.yaml"
+        ]
+    },
     "dnoegel/php-xdg-base-dir": {
         "version": "v0.1.1"
     },
@@ -357,6 +369,9 @@
     "symfony/asset": {
         "version": "v4.4.18"
     },
+    "symfony/browser-kit": {
+        "version": "v5.2.0"
+    },
     "symfony/cache": {
         "version": "v4.4.18"
     },
@@ -390,6 +405,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.4.18"
+    },
+    "symfony/dom-crawler": {
+        "version": "v5.2.0"
     },
     "symfony/dotenv": {
         "version": "v5.2.0"
