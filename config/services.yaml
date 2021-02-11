@@ -44,3 +44,7 @@ services:
       public: true
       tags:
         - { name: tactician.handler, typehints: true }
+
+  App\Presentation\Http\Rest\Controller\:
+    resource: '../src/Presentation/Http/Rest/Controller/*'
+    tags: [ 'controller.service_arguments' ]
