@@ -27,8 +27,6 @@ services:
     build: ./.docker/php
     volumes:
       - ./:/app
-    env_file:
-      - .env
     environment:
       PHP_IDE_CONFIG: "serverName=localhost"
     depends_on:

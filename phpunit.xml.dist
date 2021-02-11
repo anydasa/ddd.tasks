@@ -10,9 +10,10 @@
     <ini name="error_reporting" value="-1"/>
     <server name="APP_ENV" value="test" force="true"/>
     <server name="SHELL_VERBOSITY" value="-1"/>
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
   </php>
   <testsuites>
-    <testsuite name="Task manager DDD TDD">
+    <testsuite name="tests">
       <directory>tests</directory>
     </testsuite>
   </testsuites>

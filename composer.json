@@ -39,6 +39,8 @@
     },
     "sort-packages": true
   },
+
+
   "autoload": {
     "psr-4": {
       "App\\": "src/"
@@ -46,6 +48,7 @@
   },
   "autoload-dev": {
     "psr-4": {
+      "Test\\": "tests/"
     }
   },
   "replace": {
