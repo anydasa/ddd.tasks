@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Task\ValueObject;
 
-use App\Domain\Common\Exception\CannotCreateEntityException;
 use App\Domain\Task\ValueObject\Status\StatusInTypeProgress;
 use App\Domain\Task\ValueObject\Status\StatusTypeBacklog;
 use App\Domain\Task\ValueObject\Status\StatusTypeDone;
@@ -12,6 +11,7 @@ use App\Domain\Task\ValueObject\Status\StatusTypePaused;
 use App\Domain\Task\ValueObject\Status\StatusTypeRejected;
 use App\Domain\Task\ValueObject\Status\StatusTypes;
 use App\Domain\Task\ValueObject\Status\StatusTypeTodo;
+use Assert\Assertion;
 
 abstract class Status
 {
@@ -30,12 +30,10 @@ abstract class Status
 
     public static function createFromValue(int $value): Status
     {
-        if (array_key_exists($value, self::BUILTIN_TYPES_MAP)) {
-            $class = self::BUILTIN_TYPES_MAP[$value];
+        Assertion::keyExists(self::BUILTIN_TYPES_MAP, $value, 'Not allowed status type');
 
-            return new $class();
-        }
+        $class = self::BUILTIN_TYPES_MAP[$value];
 
-        throw new CannotCreateEntityException(sprintf("Can't create status from value: %s", $value));
+        return new $class();
     }
 }

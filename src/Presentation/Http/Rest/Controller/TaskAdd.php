@@ -11,6 +11,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -62,6 +63,6 @@ class TaskAdd
 
         return new JsonResponse([
             'id' => $command->getId(),
-        ]);
+        ], Response::HTTP_CREATED);
     }
 }

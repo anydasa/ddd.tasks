@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Task\Persistence\Doctrine\Repository;
 
+use App\Domain\Common\Exception\ConflictEntityException;
 use App\Domain\Common\Exception\EntityNotFoundException;
 use App\Domain\Task\Model\Task;
 use App\Domain\Task\Repository\TaskRepositoryInterface;
 use App\Domain\Task\ValueObject\TaskId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -29,9 +30,14 @@ class TaskRepository extends ServiceEntityRepository implements TaskRepositoryIn
     /**
      * @throws ORMException
      */
-    public function add(Task $task): void
+    public function store(Task $task): void
     {
-        $this->_em->persist($task);
+        try {
+            $this->_em->persist($task);
+            $this->_em->flush();
+        } catch (UniqueConstraintViolationException $e) {
+            throw new ConflictEntityException();
+        }
     }
 
     public function getById(TaskId $id): Task
@@ -52,14 +58,6 @@ class TaskRepository extends ServiceEntityRepository implements TaskRepositoryIn
     public function remove(Task $task): void
     {
         $this->_em->remove($task);
-    }
-
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function flush(): void
-    {
         $this->_em->flush();
     }
 }

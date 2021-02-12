@@ -27,11 +27,9 @@ services:
   App\Presentation\Http\Rest\Exception\HttpExceptionMap:
     arguments:
       $exceptionMap:
-        'App\Domain\Common\Exception\EntityNotFoundException': 404
-        'Symfony\Component\HttpKernel\Exception\BadRequestHttpException': 400
-        'App\Domain\SurveyResponse\Exception\RequiredQuestionResponseNotFoundException': 400
-        'App\Domain\SurveyResponse\Exception\InvalidQuestionIdInResponseException': 400
-        'App\Domain\Common\Exception\CannotModifyEntityException': 409
+        App\Domain\Common\Exception\ConflictEntityException: 409
+        App\Domain\Common\Exception\EntityNotFoundException: 404
+        InvalidArgumentException: 400
 
   _instanceof:
 

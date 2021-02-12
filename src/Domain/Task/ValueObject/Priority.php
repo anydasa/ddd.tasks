@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Task\ValueObject;
 
-use App\Domain\Common\Exception\CannotCreateEntityException;
 use App\Domain\Task\ValueObject\Priority\PriorityHigh;
 use App\Domain\Task\ValueObject\Priority\PriorityLow;
 use App\Domain\Task\ValueObject\Priority\PriorityMedium;
 use App\Domain\Task\ValueObject\Priority\PriorityTypes;
+use Assert\Assertion;
 
 abstract class Priority
 {
@@ -30,24 +30,20 @@ abstract class Priority
 
     public static function createFromValue(int $value): Priority
     {
-        if (array_key_exists($value, self::BUILTIN_TYPES_VALUE_MAP)) {
-            $class = self::BUILTIN_TYPES_VALUE_MAP[$value];
+        Assertion::keyExists(self::BUILTIN_TYPES_VALUE_MAP, $value, 'Not allowed priority type');
 
-            return new $class();
-        }
+        $class = self::BUILTIN_TYPES_VALUE_MAP[$value];
 
-        throw new CannotCreateEntityException(sprintf("Can't create priority from value: %s", $value));
+        return new $class();
     }
 
     public static function createFromCode(string $value): Priority
     {
-        if (array_key_exists($value, self::BUILTIN_TYPES_CODE_MAP)) {
-            $class = self::BUILTIN_TYPES_CODE_MAP[$value];
+        Assertion::keyExists(self::BUILTIN_TYPES_CODE_MAP, $value, 'Not allowed priority type');
 
-            return new $class();
-        }
+        $class = self::BUILTIN_TYPES_CODE_MAP[$value];
 
-        throw new CannotCreateEntityException(sprintf("Can't create priority from value: %s", $value));
+        return new $class();
     }
 
     public function equal(Priority $other): bool

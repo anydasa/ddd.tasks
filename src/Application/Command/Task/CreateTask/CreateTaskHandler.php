@@ -32,7 +32,6 @@ class CreateTaskHandler implements CommandHandlerInterface
             new DueDate($command->getDueDate())
         );
 
-        $this->taskRepository->add($task);
-        $this->taskRepository->flush();
+        $this->taskRepository->store($task);
     }
 }

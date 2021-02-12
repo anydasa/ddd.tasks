@@ -9,11 +9,9 @@ use App\Domain\Task\ValueObject\TaskId;
 
 interface TaskRepositoryInterface
 {
-    public function add(Task $task): void;
+    public function store(Task $task): void;
 
     public function getById(TaskId $id): Task;
 
     public function remove(Task $task): void;
-
-    public function flush(): void;
 }
