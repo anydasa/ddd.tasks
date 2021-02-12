@@ -24,7 +24,7 @@ abstract class RestTestCase extends WebTestCase
         ];
     }
 
-    protected function post($url, $params): void
+    protected function post(string $url, array $params): void
     {
         $this->browser->request(
             'POST',
@@ -36,7 +36,7 @@ abstract class RestTestCase extends WebTestCase
         );
     }
 
-    protected function put($url, $params): void
+    protected function put(string $url, array $params): void
     {
         $this->browser->request(
             'PUT',
@@ -45,6 +45,17 @@ abstract class RestTestCase extends WebTestCase
             [],
             $this->headers(),
             (string) json_encode($params)
+        );
+    }
+
+    protected function get(string $uri, array $params = []): void
+    {
+        $this->browser->request(
+            'GET',
+            $uri,
+            $params,
+            [],
+            $this->headers()
         );
     }
 

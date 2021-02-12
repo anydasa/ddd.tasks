@@ -7,15 +7,15 @@ namespace App\Presentation\Http\Rest\Controller;
 use App\Application\Query\Task\GetTask\GetTaskByIdQuery;
 use League\Tactician\CommandBus;
 use OpenApi\Annotations as OA;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @OA\Tag(name="Task")
  *
  * @Route(
- *     "/{id}",
+ *     "/task/{id}",
  *     name="get_task",
  *     methods={"GET"}
  * )
@@ -38,18 +38,18 @@ class TaskGet
 {
     private CommandBus $commandBus;
 
-    private SerializerInterface $serializer;
+    private NormalizerInterface $serializer;
 
-    public function __construct(CommandBus $commandBus, SerializerInterface $serializer)
+    public function __construct(CommandBus $commandBus, NormalizerInterface $serializer)
     {
         $this->commandBus = $commandBus;
         $this->serializer = $serializer;
     }
 
-    public function __invoke(string $id): Response
+    public function __invoke(string $id): JsonResponse
     {
         $result = $this->commandBus->handle(new GetTaskByIdQuery($id));
 
-        return new Response($this->serializer->serialize($result, 'json'));
+        return new JsonResponse($this->serializer->normalize($result, 'array'));
     }
 }
