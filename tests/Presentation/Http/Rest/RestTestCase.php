@@ -5,6 +5,8 @@ namespace Test\Presentation\Http\Rest;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use function json_decode;
+use function json_encode;
 
 abstract class RestTestCase extends WebTestCase
 {
@@ -30,13 +32,25 @@ abstract class RestTestCase extends WebTestCase
             [],
             [],
             $this->headers(),
-            (string) \json_encode($params)
+            (string) json_encode($params)
+        );
+    }
+
+    protected function put($url, $params): void
+    {
+        $this->browser->request(
+            'PUT',
+            $url,
+            [],
+            [],
+            $this->headers(),
+            (string) json_encode($params)
         );
     }
 
     protected function responseData()
     {
-        return \json_decode($this->response()->getContent(), true);
+        return json_decode($this->response()->getContent(), true);
     }
 
     protected function response(): Response

@@ -33,6 +33,6 @@ class EditTaskHandler implements CommandHandlerInterface
         $task->changeDueDate(new DueDate($command->getDueDate()));
         $task->changePriority(Priority::createFromCode($command->getPriority()));
 
-        $this->taskRepository->flush();
+        $this->taskRepository->store($task);
     }
 }
