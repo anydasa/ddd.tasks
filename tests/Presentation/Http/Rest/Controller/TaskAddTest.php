@@ -11,6 +11,7 @@ class TaskAddTest extends RestTestCase
 {
     /**
      * @test
+     * @group e2e
      * @dataProvider validPayloadData
      */
     public function given_a_valid_request_should_return_a_201_status_code(array $params)
@@ -22,6 +23,7 @@ class TaskAddTest extends RestTestCase
 
     /**
      * @test
+     * @group e2e
      * @dataProvider wrongPayloadData
      */
     public function given_a_wrong_request_should_return_a_400_status_code($params)
@@ -33,6 +35,7 @@ class TaskAddTest extends RestTestCase
 
     /**
      * @test
+     * @group e2e
      * @dataProvider wrongPayloadData
      */
     public function given_a_wrong_request_should_return_a_response_with_errors($params)
@@ -45,6 +48,7 @@ class TaskAddTest extends RestTestCase
 
     /**
      * @test
+     * @group e2e
      */
     public function given_a_same_request_twice_should_return_a_409_status_code()
     {

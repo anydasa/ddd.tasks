@@ -11,6 +11,7 @@ class TaskGetTest extends RestTestCase
 {
     /**
      * @test
+     * @group e2e
      */
     public function given_a_valid_request_should_return_a_200_status_code()
     {
@@ -31,6 +32,7 @@ class TaskGetTest extends RestTestCase
 
     /**
      * @test
+     * @group e2e
      * @dataProvider requestResponseData
      */
     public function given_a_valid_request_should_return_a_valid_response($taskData, $response)
@@ -44,6 +46,7 @@ class TaskGetTest extends RestTestCase
 
     /**
      * @test
+     * @group e2e
      */
     public function given_a_valid_request_should_return_404_status_code_when_not_exist()
     {

@@ -11,6 +11,7 @@ class TaskEditTest extends RestTestCase
 {
     /**
      * @test
+     * @group e2e
      * @dataProvider validPayloadData
      */
     public function given_a_valid_request_should_return_a_201_status_code($params)
@@ -24,6 +25,7 @@ class TaskEditTest extends RestTestCase
 
     /**
      * @test
+     * @group e2e
      * @dataProvider wrongPayloadData
      */
     public function given_a_wrong_request_should_return_a_400_status_code($params)
@@ -37,6 +39,7 @@ class TaskEditTest extends RestTestCase
 
     /**
      * @test
+     * @group e2e
      * @dataProvider wrongPayloadData
      */
     public function given_a_wrong_request_should_return_a_response_with_errors($params)

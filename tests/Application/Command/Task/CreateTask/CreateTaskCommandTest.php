@@ -19,6 +19,7 @@ class CreateTaskCommandTest extends KernelTestCase
     }
 
     /**
+     * @group integration
      * @dataProvider \Test\Application\Command\Task\CreateTask\DataProvider::getValidCommandData
      */
     public function testSuccess(string $id, string $label, string $description, string $priority, string $date)
@@ -30,6 +31,7 @@ class CreateTaskCommandTest extends KernelTestCase
     }
 
     /**
+     * @group integration
      * @dataProvider \Test\Application\Command\Task\CreateTask\DataProvider::getInvalidCommandData
      */
     public function testException(string $id, string $label, string $description, string $priority, string $date)

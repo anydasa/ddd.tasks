@@ -24,6 +24,7 @@ class EditTaskRequestTest extends KernelTestCase
 
     /**
      * @test
+     * @group unit
      * @dataProvider validPayload
      */
     public function given_a_valid_payload_should_return_0_errors($payload)
@@ -41,6 +42,7 @@ class EditTaskRequestTest extends KernelTestCase
 
     /**
      * @test
+     * @group unit
      * @dataProvider invalidPayload
      */
     public function given_a_bad_payload_should_return_errors($payload, $fieldName, $errorCode)
