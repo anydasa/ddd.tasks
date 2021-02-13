@@ -24,7 +24,7 @@ class TaskGetTest extends RestTestCase
 
         $this->post('/api/v1/task/', $params);
 
-        $this->get('/api/v1/task/' . $params['id']);
+        $this->get('/api/v1/task/'.$params['id']);
 
         $this->assertEquals(Response::HTTP_OK, $this->response()->getStatusCode());
     }
@@ -37,7 +37,7 @@ class TaskGetTest extends RestTestCase
     {
         $this->post('/api/v1/task/', $taskData);
 
-        $this->get('/api/v1/task/' . $taskData['id']);
+        $this->get('/api/v1/task/'.$taskData['id']);
 
         $this->assertSame($response, $this->responseData());
     }
@@ -47,7 +47,7 @@ class TaskGetTest extends RestTestCase
      */
     public function given_a_valid_request_should_return_404_status_code_when_not_exist()
     {
-        $this->get('/api/v1/task/' . Uuid::uuid4()->toString());
+        $this->get('/api/v1/task/'.Uuid::uuid4()->toString());
 
         $this->assertEquals(Response::HTTP_NOT_FOUND, $this->response()->getStatusCode());
     }
@@ -67,7 +67,7 @@ class TaskGetTest extends RestTestCase
                     'id' => $id,
                     'label' => 'Label1',
                     'description' => 'Description1',
-                ]
+                ],
             ],
         ];
     }

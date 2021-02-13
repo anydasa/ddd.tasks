@@ -2,11 +2,11 @@
 
 namespace Test\Presentation\Http\Rest;
 
+use function json_decode;
+use function json_encode;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use function json_decode;
-use function json_encode;
 
 abstract class RestTestCase extends WebTestCase
 {

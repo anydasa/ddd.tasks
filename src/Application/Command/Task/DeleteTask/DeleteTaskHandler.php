@@ -21,6 +21,5 @@ class DeleteTaskHandler implements CommandHandlerInterface
     {
         $task = $this->taskRepository->getById(new TaskId($command->getId()));
         $this->taskRepository->remove($task);
-        $this->taskRepository->flush();
     }
 }
