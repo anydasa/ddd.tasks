@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presentation\Http\Rest\Request;
 
-use App\Application\Exception\CommandValidationException;
+use App\Presentation\Http\Rest\Exception\RequestValidationFailedException;
 use Generator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
@@ -40,7 +40,7 @@ class RequestResolver implements ArgumentValueResolverInterface
         $errors = $this->validator->validate($customRequest);
 
         if (count($errors) > 0) {
-            throw new CommandValidationException($errors);
+            throw new RequestValidationFailedException($errors);
         }
 
         yield $customRequest;

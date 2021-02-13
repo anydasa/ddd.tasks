@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Presentation\Http\Rest\Exception;
 
-use App\Application\Exception\CommandValidationException;
 use League\Tactician\Bundle\Middleware\InvalidCommandException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -26,7 +25,7 @@ class HttpExceptionMap
             return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
         }
 
-        if ($e instanceof CommandValidationException || $e instanceof InvalidCommandException) {
+        if ($e instanceof RequestValidationFailedException || $e instanceof InvalidCommandException) {
             $errors = array_map(function (ConstraintViolation $constraintViolation) {
                 return $constraintViolation->getPropertyPath().' - '.$constraintViolation->getMessage();
             }, iterator_to_array($e->getViolations()));
