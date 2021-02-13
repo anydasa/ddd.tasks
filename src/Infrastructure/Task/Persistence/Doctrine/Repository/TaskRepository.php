@@ -6,8 +6,8 @@ namespace App\Infrastructure\Task\Persistence\Doctrine\Repository;
 
 use App\Domain\Common\Exception\ConflictEntityException;
 use App\Domain\Common\Exception\EntityNotFoundException;
-use App\Domain\Task\Model\Task;
 use App\Domain\Task\Repository\TaskRepositoryInterface;
+use App\Domain\Task\Task;
 use App\Domain\Task\ValueObject\TaskId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
@@ -42,7 +42,7 @@ class TaskRepository extends ServiceEntityRepository implements TaskRepositoryIn
 
     public function getById(TaskId $id): Task
     {
-        /** @var Task|null $task */
+        /** @var \App\Domain\Task\Task|null $task */
         $task = $this->find($id);
 
         if (null === $task) {

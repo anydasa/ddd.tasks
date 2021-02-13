@@ -1,4 +1,4 @@
-App\Domain\Task\Model\Task:
+App\Domain\Task\Task:
   repositoryClass: App\Infrastructure\Task\Persistence\Doctrine\Repository\TaskRepository
   type: entity
   table: task

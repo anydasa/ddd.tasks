@@ -23,7 +23,7 @@ doctrine:
         is_bundle: false
         type: yml
         dir: '%kernel.project_dir%/src/Infrastructure/Task/Persistence/Doctrine/config/Model'
-        prefix: 'App\Domain\Task\Model'
+        prefix: 'App\Domain\Task'
       TaskValueObject:
         is_bundle: false
         type: yml

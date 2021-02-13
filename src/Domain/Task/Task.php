@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Task\Model;
+namespace App\Domain\Task;
 
 use App\Domain\Task\Event\TaskWasCreated;
 use App\Domain\Task\ValueObject\Description;

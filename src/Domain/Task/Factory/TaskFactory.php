@@ -2,7 +2,7 @@
 
 namespace App\Domain\Task\Factory;
 
-use App\Domain\Task\Model\Task;
+use App\Domain\Task\Task;
 use App\Domain\Task\ValueObject\Description;
 use App\Domain\Task\ValueObject\DueDate;
 use App\Domain\Task\ValueObject\Label;
