@@ -91,4 +91,19 @@ final class Task implements ContainsRecordedEvents
     {
         return $this->id;
     }
+
+    public function getStatus(): Status
+    {
+        return $this->status;
+    }
+
+    public function getPriority(): Priority
+    {
+        return $this->priority;
+    }
+
+    public function getDueDate(): DueDate
+    {
+        return $this->dueDate;
+    }
 }
