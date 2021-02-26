@@ -8,15 +8,6 @@
     "beberlei/assert": {
         "version": "v3.3.0"
     },
-    "bornfree/tactician-doctrine-domain-events": {
-        "version": "0.4.0"
-    },
-    "bornfreee/tactician-domain-events": {
-        "version": "0.3.1"
-    },
-    "bornfreee/tactician-domain-events-bundle": {
-        "version": "0.5.6"
-    },
     "brick/math": {
         "version": "0.9.1"
     },

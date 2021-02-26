@@ -1,11 +1,10 @@
 tactician:
-    commandbus:
-        default:
-            middleware:
-              - tactician_domain_events.middleware.release_recorded_events
-              - tactician.middleware.validator
-              - tactician.middleware.doctrine
-              - tactician.middleware.command_handler
-        validator:
-          middleware:
-            - tactician.middleware.validator
+  commandbus:
+    default:
+      middleware:
+        - tactician.middleware.validator
+        - tactician.middleware.doctrine
+        - tactician.middleware.command_handler
+    validator:
+      middleware:
+        - tactician.middleware.validator

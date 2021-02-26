@@ -7,8 +7,6 @@
     "ext-iconv": "*",
     "ext-json": "*",
     "beberlei/assert": "^3.3",
-    "bornfree/tactician-doctrine-domain-events": "^0.4.0",
-    "bornfreee/tactician-domain-events-bundle": "^0.5.5",
     "doctrine/annotations": "^1.11",
     "league/tactician-bundle": "^1.1",
     "league/tactician-doctrine": "^1.1",
